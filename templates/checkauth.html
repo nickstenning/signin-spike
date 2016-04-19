@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<link rel=stylesheet href={{ url_for('static', filename='style.css') }}>
+
+<article>
+{% if client_origin and username %}
+    <p>You're logged in. Posting a message to the sidebar...</p>
+{% else %}
+    <p>You're not logged in. Boo.</p>
+{% endif %}
+</article>
+
+{% if client_origin and username %}
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+        if (window.opener) {
+            window.opener.postMessage('{{ username }}', '{{ client_origin }}');
+            setTimeout(function () {
+                window.close();
+            }, 1000);
+        }
+    });
+</script>
+{% endif %}

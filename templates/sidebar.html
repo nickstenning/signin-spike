@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<link rel=stylesheet href={{ url_for('static', filename='style.css') }}>
+
+<article>
+    {% include 'debug.html' %}
+    <hr>
+    <p>Username: <span id="username"></span></p>
+    <p>
+        <a onclick="window.open(this.href,'loginwindow','width=600,height=400');return false;"
+           href="http://service.dev:5000/checkauth?client=http://sidebar.dev:5000"
+           target="_blank">Login</a>
+    </p>
+    <p>
+        This content is served from the sidebar. Lorem ipsum dolor sit amet,
+        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+        labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+        accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
+        sea takimata sanctus est Lorem ipsum dolor sit amet.
+    </p>
+</article>
+
+<script>
+  function receiveMessage(event) {
+      if (event.origin !== "http://service.dev:5000") {
+          return;
+      }
+      setUsername(event.data);
+  }
+
+  function setUsername(username) {
+      document.querySelector('#username').textContent = username;
+  }
+
+  window.addEventListener("message", receiveMessage);
+</script>

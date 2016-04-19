@@ -1,0 +1,12 @@
+Add the following to /etc/hosts
+
+    127.0.0.1 sidebar.dev content.dev service.dev
+
+Run
+
+    pip install flask
+    python run.py
+
+Visit
+
+    http://content.dev:5000/
